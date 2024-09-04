@@ -31,6 +31,11 @@ public class UserController {
                 .build()).toList());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserEntity> findById(@PathVariable long id) {
+        return ResponseEntity.ok(userRepository.findById(id).get());
+    }
+
     @PostMapping("/")
     public ResponseEntity<UserEntity> insert(@RequestBody UserModel model) {
         return ResponseEntity.ok(userRepository.save(UserEntity.builder()
