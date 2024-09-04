@@ -15,8 +15,8 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/users")
-@CrossOrigin("*")
 public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
