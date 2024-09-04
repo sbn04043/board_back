@@ -5,6 +5,7 @@ import live.greenmarket.board_back.model.entity.BoardEntity;
 import live.greenmarket.board_back.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 @RequestMapping("/api/boards")
 public class BoardController {
     public List<BoardEntity> findAll() {

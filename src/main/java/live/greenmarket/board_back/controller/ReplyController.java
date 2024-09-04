@@ -5,6 +5,7 @@ import live.greenmarket.board_back.model.entity.ReplyEntity;
 import live.greenmarket.board_back.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 public class ReplyController implements ReplyService {
     public List<ReplyEntity> findAll() {
         return List.of();

@@ -16,6 +16,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
+@CrossOrigin
 public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<UserEntity> save(@RequestBody UserModel model) {
+    public ResponseEntity<UserEntity> insert(@RequestBody UserModel model) {
         return ResponseEntity.ok(userRepository.save(UserEntity.builder()
                 .username(model.getUsername())
                 .password(model.getPassword())
