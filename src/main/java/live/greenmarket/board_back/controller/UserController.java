@@ -21,6 +21,11 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
 
+    @PostMapping("/auth")
+    public ResponseEntity<UserModel> login(@RequestBody UserModel model) {
+        return ResponseEntity.ok(userRepository.auth(model.getUsername(), model.getPassword()));
+    }
+
     @GetMapping("/list")
     public ResponseEntity<List<UserModel>> findAll() {
         return ResponseEntity.ok(userRepository.findAll().stream().map(userEntity -> UserModel.builder()
@@ -72,10 +77,5 @@ public class UserController {
 
     public long count() {
         return 0;
-    }
-
-
-    public Map<?, ?> login(UserModel model) {
-        return Map.of();
     }
 }

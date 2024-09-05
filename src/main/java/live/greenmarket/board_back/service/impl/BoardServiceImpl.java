@@ -2,6 +2,7 @@ package live.greenmarket.board_back.service.impl;
 
 import live.greenmarket.board_back.model.domain.BoardModel;
 import live.greenmarket.board_back.model.entity.BoardEntity;
+import live.greenmarket.board_back.model.repository.BoardRepository;
 import live.greenmarket.board_back.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
+    private final BoardRepository boardRepository;
+
     @Override
     public List<BoardEntity> findAll() {
         return List.of();
@@ -30,7 +33,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public boolean existsById(Long id) {
-        return false;
+        return boardRepository.existsById(id);
     }
 
     @Override
@@ -39,12 +42,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void deleteById(Long id) {
-
-    }
-
-    @Override
-    public Map<?, ?> login(BoardModel model) {
-        return Map.of();
+    public boolean deleteById(Long id) {
+        if (existsById(id)) {
+            boardRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

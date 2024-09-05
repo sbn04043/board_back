@@ -18,7 +18,5 @@ public interface BoardService {
 
     long count();
 
-    void deleteById(Long id);
-
-    Map<?,?> login(BoardModel model);
+    boolean deleteById(Long id);
 }
