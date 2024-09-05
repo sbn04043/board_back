@@ -34,24 +34,24 @@ public class BoardController {
                 .build())));
     }
 
-//    @GetMapping("/insertTestData")
-//    public ResponseEntity<Boolean> insertTestData() {
-//        try {
-//            for (int i = 0; i < 200; i++) {
-//                boardRepository.save(BoardEntity.builder()
-//                        .boardTitle("Board Title " + i)
-//                        .boardContent("Board Content " + i)
-//                        .boardCreateDate(new Date())
-//                        .boardModifyDate(new Date())
-//                        .userId(1L)
-//                        .build());
-//            }
-//            return ResponseEntity.ok(true);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.ok(false);
-//        }
-//    }
+    @GetMapping("/insertTestData")
+    public ResponseEntity<Boolean> insertTestData() {
+        try {
+            for (int i = 0; i < 200; i++) {
+                boardRepository.save(BoardEntity.builder()
+                        .boardTitle("Board Title " + i)
+                        .boardContent("Board Content " + i)
+                        .boardCreateDate(new Date())
+                        .boardModifyDate(new Date())
+                        .userId(1L)
+                        .build());
+            }
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(false);
+        }
+    }
 
     @GetMapping("/list")
     public ResponseEntity<List<BoardEntity>> findAll() {
