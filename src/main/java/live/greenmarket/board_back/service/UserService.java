@@ -22,7 +22,7 @@ public interface UserService {
 
     void deleteById(Long id);
 
-    Map<?,?> login(UserModel model);
+    Map<?, ?> login(UserModel model);
 
-    List<UserEntity> pagination(Pagination pagination);
+    Map<?, ?> pagination(Pagination pagination);
 }

@@ -8,6 +8,7 @@ import live.greenmarket.board_back.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,8 +54,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserEntity> pagination(Pagination pagination) {
-        System.out.println("pagination = " + pagination.toString());
-        return userRepository.pagination(pagination.getStartRow(), pagination.getPAGE_SIZE());
+    public Map<?, ?> pagination(Pagination pagination) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("pagination", pagination);
+        map.put("userList", userRepository.pagination(pagination.getStartRow(), pagination.getPAGE_SIZE()));
+        return map;
     }
 }

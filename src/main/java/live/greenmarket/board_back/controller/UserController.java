@@ -29,14 +29,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/list/{pageNo}")
-    public ResponseEntity<List<UserEntity>> list(@PathVariable int pageNo) {
-        System.out.println("pageNo: " + pageNo);
+    public ResponseEntity<Map<?, ?>> list(@PathVariable int pageNo) {
         return ResponseEntity.ok(userService.pagination(new Pagination(pageNo, (int) userRepository.count())));
     }
 
     @GetMapping("/userCrawling")
     public ResponseEntity<Boolean> userCrawling() {
-
         try {
             Document bugsDoc = Jsoup.connect("https://music.bugs.co.kr/chart").get();
             Elements elements = bugsDoc.select("table.byChart");

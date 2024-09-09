@@ -32,8 +32,21 @@ public class Pagination {
         this.pageCount = this.totalCount % PAGE_SIZE == 0 ? this.totalCount / PAGE_SIZE : this.totalCount / PAGE_SIZE + 1;
         this.startRow = (pageNum - 1) * PAGE_SIZE;
         this.endRow = pageNum * PAGE_SIZE;
-        this.startPage = Math.max(1, pageNum - 2);
-        this.endPage = Math.min(pageCount, pageNum + 2);
+
+        if (pageCount < 5) {
+            this.startPage = 1;
+            this.endPage = pageCount;
+        } else if (pageNum < 3) {
+            this.startPage = 1;
+            this.endPage = 5;
+        } else if (pageNum > pageCount - 2) {
+            this.startPage = pageCount - 4;
+            this.endPage = pageCount;
+        } else {
+            this.startPage = pageNum - 2;
+            this.endPage = pageNum + 2;
+        }
+
         this.existPrev = pageNum == 1;
         this.existNext = pageNum == pageCount;
         this.nextBlock = startPage + BLOCK_SIZE;
