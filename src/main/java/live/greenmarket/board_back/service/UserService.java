@@ -2,6 +2,7 @@ package live.greenmarket.board_back.service;
 
 import live.greenmarket.board_back.model.domain.UserModel;
 import live.greenmarket.board_back.model.entity.UserEntity;
+import live.greenmarket.board_back.pattern.proxy.Pagination;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface UserService {
     void deleteById(Long id);
 
     Map<?,?> login(UserModel model);
+
+    List<UserEntity> pagination(Pagination pagination);
 }

@@ -35,31 +35,5 @@ public class HomeController {
         return ResponseEntity.ok("Login Page");
     }
 
-    @GetMapping("/userCrawling")
-    public ResponseEntity<Boolean> userCrawling() {
 
-        try {
-            Document bugsDoc = Jsoup.connect("https://music.bugs.co.kr/chart").get();
-            Elements elements = bugsDoc.select("table.byChart");
-
-            Iterator<Element> password = elements.select("strong").iterator();
-            Iterator<Element> title = elements.select("p.title").iterator();
-            Iterator<Element> artist = elements.select("p.artist").iterator();
-            Iterator<Element> name = elements.select("p.artist").iterator();
-
-            while (password.hasNext()) {
-                userRepository.save((UserEntity.builder()
-                        .username(artist.next().text())
-                        .password(password.next().text())
-                        .nickname(title.next().text())
-                        .name(name.next().text())
-                        .build()));
-            }
-
-            return ResponseEntity.ok(true);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.ok(false);
-        }
-    }
 }

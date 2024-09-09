@@ -2,6 +2,8 @@ package live.greenmarket.board_back.service.impl;
 
 import live.greenmarket.board_back.model.domain.UserModel;
 import live.greenmarket.board_back.model.entity.UserEntity;
+import live.greenmarket.board_back.model.repository.UserRepository;
+import live.greenmarket.board_back.pattern.proxy.Pagination;
 import live.greenmarket.board_back.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
+
     @Override
     public List<UserEntity> findAll() {
         return List.of();
@@ -46,5 +50,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<?, ?> login(UserModel model) {
         return Map.of();
+    }
+
+    @Override
+    public List<UserEntity> pagination(Pagination pagination) {
+        System.out.println("pagination = " + pagination.toString());
+        return userRepository.pagination(pagination.getStartRow(), pagination.getPAGE_SIZE());
     }
 }

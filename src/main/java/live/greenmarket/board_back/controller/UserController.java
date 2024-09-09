@@ -3,12 +3,19 @@ package live.greenmarket.board_back.controller;
 import live.greenmarket.board_back.model.domain.UserModel;
 import live.greenmarket.board_back.model.entity.UserEntity;
 import live.greenmarket.board_back.model.repository.UserRepository;
+import live.greenmarket.board_back.pattern.proxy.Pagination;
 import live.greenmarket.board_back.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -20,6 +27,40 @@ import java.util.Optional;
 public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
+
+    @GetMapping("/list/{pageNo}")
+    public ResponseEntity<List<UserEntity>> list(@PathVariable int pageNo) {
+        System.out.println("pageNo: " + pageNo);
+        return ResponseEntity.ok(userService.pagination(new Pagination(pageNo, (int) userRepository.count())));
+    }
+
+    @GetMapping("/userCrawling")
+    public ResponseEntity<Boolean> userCrawling() {
+
+        try {
+            Document bugsDoc = Jsoup.connect("https://music.bugs.co.kr/chart").get();
+            Elements elements = bugsDoc.select("table.byChart");
+
+            Iterator<Element> password = elements.select("strong").iterator();
+            Iterator<Element> title = elements.select("p.title").iterator();
+            Iterator<Element> artist = elements.select("p.artist").iterator();
+            Iterator<Element> name = elements.select("p.artist").iterator();
+
+            while (password.hasNext()) {
+                userRepository.save((UserEntity.builder()
+                        .username(artist.next().text())
+                        .password(password.next().text())
+                        .nickname(title.next().text())
+                        .name(name.next().text())
+                        .build()));
+            }
+
+            return ResponseEntity.ok(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(false);
+        }
+    }
 
     @GetMapping("/list")
     public ResponseEntity<List<UserModel>> findAll() {
