@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    @Query(value = "SELECT * FROM user WHERE username=?1 AND password=?2", nativeQuery = true)
-    UserModel auth(String username, String password);
+
 }
