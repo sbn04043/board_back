@@ -19,4 +19,6 @@ public interface BoardService {
     long count();
 
     boolean deleteById(Long id);
+
+    List<BoardModel> getPaginationList(Long page);
 }

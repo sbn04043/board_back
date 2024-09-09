@@ -16,6 +16,8 @@ import java.util.Optional;
 public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
 
+    private int PAGE_SIZE = 5;
+
     @Override
     public List<BoardEntity> findAll() {
         return List.of();
@@ -49,5 +51,10 @@ public class BoardServiceImpl implements BoardService {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<BoardModel> getPaginationList(Long page) {
+        return List.of();
     }
 }

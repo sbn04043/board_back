@@ -53,9 +53,9 @@ public class BoardController {
         }
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<BoardEntity>> findAll() {
-        return ResponseEntity.ok(boardRepository.findAll());
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<BoardModel>> findAll(@PathVariable Long page) {
+        return ResponseEntity.ok(boardService.getPaginationList(page));
     }
 
     @PostMapping
