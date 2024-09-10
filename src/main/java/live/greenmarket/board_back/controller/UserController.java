@@ -30,6 +30,7 @@ public class UserController {
 
     @GetMapping("/list/{pageNo}")
     public ResponseEntity<Map<?, ?>> list(@PathVariable int pageNo) {
+        System.out.println("pageNo: " + pageNo);
         return ResponseEntity.ok(userService.pagination(new Pagination(pageNo, (int) userRepository.count())));
     }
 
